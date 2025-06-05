@@ -16,3 +16,118 @@ An **object** is an instance of a class. It contains actual data and can use the
 A **constructor** is a special method in a class that is automatically called when an object is created. In Python, the constructor method is named `__init__`.
 
 It is used to **initialize the attributes** of the object.
+
+
+We made a small Project (oops_proj)
+
+
+### 🔹 What is `self` in Python?
+
+- `self` is a **reference to the current object** of the class.
+- It is used to **access attributes and methods** within the class.
+- It must be the **first parameter** in instance methods (like `def my_method(self)`), but you don't pass it manually when calling the method — Python does it automatically.
+
+### ✅ Example:
+```python
+class Student:
+    def __init__(self, name):
+        self.name = name  # 'self.name' means the object's own 'name' attribute
+
+    def greet(self):
+        print(f"Hello, my name is {self.name}")
+
+s1 = Student("Alice")
+s1.greet()  # Output: Hello, my name is Alice
+
+### 🔐 What is Encapsulation?
+
+**Encapsulation** is one of the core concepts in Object-Oriented Programming.  
+It means **hiding the internal details** of an object and **only exposing necessary parts**.
+
+In Python, we implement encapsulation by:
+- Making attributes **private** or **protected**
+- Using **methods (getters/setters)** to access or modify them
+
+---
+
+### 🔧 How to Implement Encapsulation in Python?
+
+- Prefix attribute names with **underscore `_`** for protected or **double underscore `__`** for private.
+- Create **getter and setter methods** to access or update private data.
+
+---
+
+### ✅ Example:
+```python
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.__balance = balance  # private attribute
+
+    def get_balance(self):
+        return self.__balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+        else:
+            print("Invalid deposit amount")
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
+        else:
+            print("Insufficient funds or invalid amount")
+
+# Create an object
+acc = BankAccount("John", 1000)
+
+# Accessing private variable directly (Not Recommended)
+# print(acc.__balance)  ❌ This will raise an error
+
+# Using methods (Recommended)
+print(acc.get_balance())  # ✅ Output: 1000
+acc.deposit(500)
+print(acc.get_balance())  # ✅ Output: 1500
+
+
+
+### 🔄 Getter and Setter in Python
+
+In **encapsulation**, we use **getters** and **setters** to access and update private variables.
+
+---
+
+### 🔹 Getter
+A **getter** method is used to **read** the value of a private attribute.
+
+### 🔹 Setter
+A **setter** method is used to **modify/update** the value of a private attribute, usually with some validation.
+
+---
+
+### ✅ Example:
+```python
+class Student:
+    def __init__(self):
+        self.__name = ""  # private attribute
+
+    # Getter method
+    def get_name(self):
+        return self.__name
+
+    # Setter method
+    def set_name(self, new_name):
+        if new_name != "":
+            self.__name = new_name
+        else:
+            print("Name can't be empty")
+
+# Create object
+s1 = Student()
+
+# Use setter to set name
+s1.set_name("Alice")
+
+# Use getter to get name
+print(s1.get_name())  # Output: Alice
